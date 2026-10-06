@@ -1,0 +1,24 @@
+node_modules/
+dist/
+data/
+*.log
+
+# Environment settings; keep the safe example
+.env
+.env.*
+!.env.example
+
+# Packaged builds
+/dist*.zip
+
+# Extracted PowerPoint reference images
+/work/deck/
+
+# Local database files, wherever generated
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# OS-generated files
+.DS_Store
+Thumbs.db

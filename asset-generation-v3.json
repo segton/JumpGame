@@ -1,0 +1,7 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Edit the two reference side towers into ONE transparent sprite atlas with two equal columns: red wooden inn left half; ivory blue gold celestial tower right half. Keep the beautiful angled 3/4 view, NOT flat frontal. Use ORTHOGRAPHIC PARALLEL projection: exactly the SAME viewing angle, width, scale and diagonal balcony angle at EVERY height. No perspective convergence, no upper floors shrinking or angle changing. Three identical repeating storeys per column, continuous vertical pillars at matching x coordinates across top and bottom so it stacks seamlessly. No terminal roof or base. Intended for very narrow game edge strips, each 40px wide by 330px tall: bold readable architecture, minimal tiny detail. Fill each half horizontally, transparent exterior, no scenery or glow background. Both columns same projection and repeat geometry. No text.",
+  "source": "exec-7da30e21-73e2-4671-b15f-924c0d27ffbe.png",
+  "asset": "public/assets/tower-modules-v3.png",
+  "transparent_background": true
+}

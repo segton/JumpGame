@@ -1,0 +1,54 @@
+{
+  "generator": "Built-in image_gen",
+  "reference": "xtl mini game.pptx, extracted ppt/media/image3.png (scene-design reference)",
+  "assets": [
+    {
+      "file": "public/assets/stage-0-v2.png",
+      "source": "exec-2f4bcc2c-ac97-41e4-9ef6-9229b70b3c07.png",
+      "prompt": "Generate one production portrait background image for a 480x760 Chinese wuxia vertical jumping game, painterly cinematic illustration with refined architectural detail and elegant atmospheric perspective matching the reference slide. Reference image is ONLY art direction; do NOT reproduce slide panels, borders, logos, words, HUD, platforms, players, characters, foreground framing buildings or lanterns. Only distant scenery. Broad calm low-contrast playable central 60%, detailed distant landmarks toward outer sides. Portrait 2:3. Full bleed opaque background. Top and bottom fade toward similar mist/sky colors to support vertical scrolling. MOUNTAIN INN VALLEY, daytime: lush emerald limestone gorge, pine trees, a distant ancient Chinese mountain town with layered dark grey tiled inn roofs, warm tiny windows on outer slopes, fine waterfalls, sunlit pale mist in the open center. Grounded earthy jade and honey atmosphere.",
+      "transparent": false
+    },
+    {
+      "file": "public/assets/stage-100-v2.png",
+      "source": "exec-463fdbd4-e81e-4afc-b032-69189dbac567.png",
+      "prompt": "Generate one production portrait background image for a 480x760 Chinese wuxia vertical jumping game, painterly cinematic illustration with refined architectural detail and elegant atmospheric perspective matching the reference slide. Reference image is ONLY art direction; do NOT reproduce slide panels, borders, logos, words, HUD, platforms, players, characters, foreground framing buildings or lanterns. Only distant scenery. Broad calm low-contrast playable central 60%, detailed distant landmarks toward outer sides. Portrait 2:3. Full bleed opaque background. Top and bottom fade toward similar mist/sky colors to support vertical scrolling. HIGH MOUNTAIN CLOUD SEA: soaring blue-grey karst peaks with very distant gold-roofed temples and waterfalls descending through thick billowing white clouds; bright expansive cyan afternoon sky. A few tiny distant cranes. Much more aerial and luminous than a ground village.",
+      "transparent": false
+    },
+    {
+      "file": "public/assets/stage-300-v2.png",
+      "source": "exec-d5d580e4-8088-49f7-b73c-0d39cb497ee1.png",
+      "prompt": "Generate one production portrait background image for a 480x760 Chinese wuxia vertical jumping game, painterly cinematic illustration with refined architectural detail and elegant atmospheric perspective matching the reference slide. Reference image is ONLY art direction; do NOT reproduce slide panels, borders, logos, words, HUD, platforms, players, characters, foreground framing buildings or lanterns. Only distant scenery. Broad calm low-contrast playable central 60%, detailed distant landmarks toward outer sides. Portrait 2:3. Full bleed opaque background. Top and bottom fade toward similar mist/sky colors to support vertical scrolling. FLOATING PALACE REALM: above all mountain peaks, immense suspended ancient Chinese temple islands along distant left and right, delicate gold architecture, waterfalls dissolving into peach and lavender clouds, soft afternoon heavenly light. Open pearly sky at center. Fantastical cloud heaven, clearly airborne, no grounded valley.",
+      "transparent": false
+    },
+    {
+      "file": "public/assets/stage-500-v2.png",
+      "source": "exec-af61be8b-8758-4921-88a2-d5a29cf25a43.png",
+      "prompt": "Portrait 2:3 production game background, painterly cinematic detailed Chinese fantasy landscape. Moonlit Chinese wuxia heaven. Deep indigo twilight, floating palaces on distant rock islands on outer edges, warm tiny windows, a bright full moon in upper right, blue lavender cloud sea. Spacious darker central gameplay corridor. Only scenery, no characters, platforms, UI, text, logos, foreground framing buildings. Art style reference only; do not copy slide panels. Full bleed opaque image, atmospheric perspective.",
+      "transparent": false
+    },
+    {
+      "file": "public/assets/stage-700-v2.png",
+      "source": "exec-94c1bf36-d4f4-411d-99fe-4778c408414a.png",
+      "prompt": "Generate one production portrait background image for a 480x760 Chinese wuxia vertical jumping game, painterly cinematic illustration with refined architectural detail and elegant atmospheric perspective matching the reference slide. Reference image is ONLY art direction; do NOT reproduce slide panels, borders, logos, words, HUD, platforms, players, characters, foreground framing buildings or lanterns. Only distant scenery. Broad calm low-contrast playable central 60%, detailed distant landmarks toward outer sides. Portrait 2:3. Full bleed opaque background. Top and bottom fade toward similar mist/sky colors to support vertical scrolling. CELESTIAL STAR SEA: vast midnight violet cosmic sky, a delicate milky-way ribbon and luminous nebula mist, distant floating pagodas on small rock islands on outer left and right, silver starlight and soft purple cloud banks. Spacious dark indigo central gameplay corridor, no giant planets.",
+      "transparent": false
+    },
+    {
+      "file": "public/assets/stage-900-v2.png",
+      "source": "exec-2d4623a1-b8d5-461d-831e-f7303dd52560.png",
+      "prompt": "Portrait 2:3 production game background, painterly cinematic detailed Chinese fantasy landscape. Highest summit of Chinese wuxia heaven. Majestic distant ivory jade and gold celestial palace gates on floating islands along left and right edges, golden divine light, pearl cloud banks, deep turquoise sky and gold dust, tranquil quiet central sky. Only scenery, no characters, platforms, UI, text, logos, foreground framing buildings. Art style reference only; do not copy slide panels. Full bleed opaque image, atmospheric perspective.",
+      "transparent": false
+    },
+    {
+      "file": "public/assets/celestial-edge-v2.png",
+      "source": "exec-eaccca02-156f-4dba-ba6e-db2238b14cf6.png",
+      "transparent": true,
+      "prompt": "Production transparent PNG game scenery cutout, painterly cinematic Chinese wuxia fantasy matching the reference's celestial palaces. A slender vertical section of a magnificent jade and ivory celestial palace facade at the LEFT edge: carved pale stone pillars, delicate pale blue tiled eaves, restrained polished gold trim and hanging blue crystal ornaments, several stacked roofs. Architecture occupies left two-thirds of portrait image, tapering into transparent space at right; fully transparent background around irregular silhouette. Front-facing three-quarter perspective, no opaque sky, no ground, no text, no logos, no people, no platforms. Designed to mirror at opposite screen edge and tile vertically. Refined balanced detail readable when reduced, soft cool lighting. This is a new standalone asset; reference is style only."
+    },
+    {
+      "file": "public/assets/platform-atlas-v2.png",
+      "source": "exec-2598ad9b-1515-4439-a851-ce0764f9c90b.png",
+      "transparent": true,
+      "prompt": "Production transparent PNG sprite atlas for a painterly Chinese wuxia jumping game. One square 2 by 2 equal-cell sheet, four isolated horizontal platforms aligned consistently with generous empty transparent margins per cell. Each platform same camera perspective, seen slightly from above with a flat horizontal walkable top at 36% of its cell height, platform spanning 85% of cell width, object height about 40% of cell. Top left: elegant aged bronze and gold floating stone terrace with restrained carved cloud ornaments and two little red tassels. Top right: delicate white and pale blue sculpted cloud platform, fluffy painterly wisps with a clear flattened landing surface. Bottom left: worn ancient wood and bronze terrace with visible central cracks, splintered planks, subtle amber light inside cracks, two little red tassels. Bottom right: celestial ivory jade and polished gold terrace with soft cyan inlay, refined cloud carvings and two small blue tassels. Consistent high quality hand-painted realism, crisp readable silhouette, no words, numbers, labels, gridlines, scenery or cast background shadows. Real transparent alpha outside every object. Do not draw a checkerboard."
+    }
+  ]
+}

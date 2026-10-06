@@ -1,0 +1,948 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Cloud Ascent leaderboard integration",
+    "version": "1.0.0",
+    "description": "Contract for a separately implemented backend. Frontend uses VITE_LEADERBOARD_API_URL as the API root. Times are seconds. Database technology is up to the backend. Local Node/SQLite service is a development reference only. Client result is a claim: verify seeded replay using shared src/game/challenge.js, or equivalent server logic, before ranking. CORS must allow the deployed frontend origin, GET/POST/OPTIONS, Content-Type and Authorization. No database password or service secret goes in Vite env variables. Top ten per preset sorted score DESC, elapsed ASC; earliest record wins a full tie. Only completed floor-999 runs qualify. Private contact fields must never appear in public responses."
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Default same-origin route; replace with production API root"
+    }
+  ],
+  "paths": {
+    "/leaderboard": {
+      "get": {
+        "summary": "Read other players’ top-ten records",
+        "operationId": "readLeaderboard",
+        "parameters": [
+          {
+            "name": "preset",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "relaxed",
+                "classic"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "const": 10
+            }
+          },
+          {
+            "name": "gameId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "const": "cloud-ascent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Leaderboard"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs": {
+      "post": {
+        "summary": "Create ranked session and issue authoritative seed",
+        "operationId": "startRun",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{runId}/finish": {
+      "post": {
+        "summary": "Upload ended run and verify score/top-ten qualification",
+        "description": "Persist the verified result linked to runId. Ignore claimed result.score as ranking authority. Repeating finish for the same run must return its stored result. Return eligible=false for failed runs. Token authenticates only this run.",
+        "operationId": "finishRun",
+        "security": [
+          {
+            "runToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinishRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinishResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{runId}/entry": {
+      "post": {
+        "summary": "Save qualifying challenger details and return refreshed ranking",
+        "description": "Requires a verified complete run. Recheck top-ten eligibility in a transaction. Store contact fields privately and join the already verified run score using runId; do not accept a separate client score here. One best record per account/preset. Reject reused submissions with 409. The UI shows saved only after a successful response.",
+        "operationId": "saveEntry",
+        "security": [
+          {
+            "runToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Validation, authorization, expired session, rank conflict, rate limit or server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "runToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "Envelope": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "integer",
+            "const": 1
+          },
+          "gameId": {
+            "type": "string",
+            "const": "cloud-ascent"
+          },
+          "rulesVersion": {
+            "type": "string",
+            "const": "cloud-ascent-4"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "gameId",
+          "rulesVersion"
+        ]
+      },
+      "PublicRecord": {
+        "type": "object",
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "floor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999
+          },
+          "coins": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "elapsed": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Elapsed seconds; fractional values allowed."
+          },
+          "runId": {
+            "type": "string"
+          },
+          "coinPoints": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Points earned from coins only: coins × 25. Excludes floor and gourd points."
+          },
+          "maxFloor": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 999
+          },
+          "completionTime": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Elapsed seconds to finish; null for an incomplete run."
+          },
+          "remaining": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Seconds remaining when the run ended; null only for legacy records."
+          },
+          "completedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "Server-recorded UTC completion timestamp; null for legacy records."
+          }
+        },
+        "required": [
+          "rank",
+          "name",
+          "score",
+          "floor",
+          "coins",
+          "elapsed",
+          "runId"
+        ]
+      },
+      "Leaderboard": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "$ref": "#/components/schemas/PublicRecord"
+            }
+          }
+        },
+        "required": [
+          "entries"
+        ]
+      },
+      "StartRequest": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "integer",
+            "const": 1
+          },
+          "gameId": {
+            "type": "string",
+            "const": "cloud-ascent"
+          },
+          "rulesVersion": {
+            "type": "string",
+            "const": "cloud-ascent-4"
+          },
+          "preset": {
+            "type": "string",
+            "enum": [
+              "relaxed"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Challenger name entered before the run. Sent again with the final leaderboard entry."
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "gameId",
+          "rulesVersion",
+          "preset"
+        ]
+      },
+      "Session": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string",
+            "description": "Opaque per-run bearer token; keep out of logs and public records."
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "preset": {
+            "type": "string",
+            "enum": [
+              "relaxed"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "const": "cloud-ascent-4"
+          },
+          "rules": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 40
+          }
+        },
+        "required": [
+          "id",
+          "token",
+          "seed",
+          "preset",
+          "version"
+        ]
+      },
+      "ResultUpload": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "floor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999
+          },
+          "coins": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "pointItems": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "timeItems": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skillItems": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "elapsed": {
+            "type": "number",
+            "minimum": 0
+          },
+          "remaining": {
+            "type": "number",
+            "minimum": 0
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "timeout",
+              "fall",
+              "weapon"
+            ]
+          },
+          "coinPoints": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Points earned from coins only: coins × 25. Excludes floor and gourd points."
+          },
+          "maxFloor": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 999
+          },
+          "completionTime": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Elapsed seconds to finish; null for an incomplete run."
+          }
+        },
+        "required": [
+          "score",
+          "floor",
+          "coins",
+          "pointItems",
+          "timeItems",
+          "skillItems",
+          "elapsed",
+          "remaining",
+          "completed",
+          "reason"
+        ]
+      },
+      "FinishRequest": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "integer",
+            "const": 1
+          },
+          "gameId": {
+            "type": "string",
+            "const": "cloud-ascent"
+          },
+          "rulesVersion": {
+            "type": "string",
+            "const": "cloud-ascent-4"
+          },
+          "ticks": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 240000
+          },
+          "inputs": {
+            "type": "array",
+            "maxItems": 240000,
+            "items": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "integer",
+                  "minimum": -100,
+                  "maximum": 100
+                }
+              ],
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "description": "Ordered [tick, steering] changes. 120 ticks/second. Increasing integer ticks; steer -100 to 100. Default steering is zero."
+          },
+          "result": {
+            "$ref": "#/components/schemas/ResultUpload"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "gameId",
+          "rulesVersion",
+          "ticks",
+          "inputs",
+          "result"
+        ]
+      },
+      "VerifiedResult": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string",
+            "enum": [
+              "over",
+              "complete"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "timeout",
+              "fall",
+              "weapon"
+            ]
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "floor": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "coins": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "pointItems": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "timeItems": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skillItems": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "elapsed": {
+            "type": "number",
+            "minimum": 0
+          },
+          "remaining": {
+            "type": "number",
+            "minimum": 0
+          },
+          "ticks": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "coinPoints": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Points earned from coins only: coins × 25. Excludes floor and gourd points."
+          },
+          "maxFloor": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 999
+          },
+          "completionTime": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Elapsed seconds to finish; null for an incomplete run."
+          }
+        },
+        "required": [
+          "phase",
+          "reason",
+          "score",
+          "floor",
+          "elapsed",
+          "ticks"
+        ]
+      },
+      "FinishResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/VerifiedResult"
+          },
+          "eligible": {
+            "type": "boolean"
+          },
+          "rank": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 10
+          },
+          "submitted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "result",
+          "eligible",
+          "rank",
+          "submitted"
+        ]
+      },
+      "EntryRequest": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "integer",
+            "const": 1
+          },
+          "gameId": {
+            "type": "string",
+            "const": "cloud-ascent"
+          },
+          "rulesVersion": {
+            "type": "string",
+            "const": "cloud-ascent-4"
+          },
+          "runId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 254
+          },
+          "phone": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 30,
+            "pattern": "^[+0-9() .-]+$"
+          },
+          "account": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "gameId",
+          "rulesVersion",
+          "runId",
+          "name",
+          "email",
+          "phone",
+          "account"
+        ]
+      },
+      "EntryResponse": {
+        "type": "object",
+        "properties": {
+          "saved": {
+            "type": "boolean",
+            "const": true
+          },
+          "leaderboard": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "$ref": "#/components/schemas/PublicRecord"
+            }
+          }
+        },
+        "required": [
+          "saved",
+          "leaderboard"
+        ]
+      }
+    }
+  }
+}

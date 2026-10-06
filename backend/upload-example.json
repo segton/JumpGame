@@ -1,0 +1,73 @@
+{
+  "start": {
+    "schemaVersion": 1,
+    "gameId": "cloud-ascent",
+    "rulesVersion": "cloud-ascent-4",
+    "preset": "relaxed",
+    "name": "示例侠客"
+  },
+  "finish": {
+    "schemaVersion": 1,
+    "gameId": "cloud-ascent",
+    "rulesVersion": "cloud-ascent-4",
+    "ticks": 114000,
+    "inputs": [
+      [
+        0,
+        0
+      ],
+      [
+        20,
+        100
+      ],
+      [
+        62,
+        -100
+      ]
+    ],
+    "result": {
+      "score": 15465,
+      "floor": 999,
+      "coins": 115,
+      "pointItems": 26,
+      "timeItems": 42,
+      "skillItems": 13,
+      "elapsed": 950,
+      "remaining": 70,
+      "completed": true,
+      "reason": "complete",
+      "maxFloor": 999,
+      "coinPoints": 2875,
+      "completionTime": 950
+    }
+  },
+  "entry": {
+    "schemaVersion": 1,
+    "gameId": "cloud-ascent",
+    "rulesVersion": "cloud-ascent-4",
+    "runId": "server-issued-run-id",
+    "name": "示例侠客",
+    "email": "challenger@example.com",
+    "phone": "+60000000000",
+    "account": "example-account"
+  },
+  "readResponse": {
+    "entries": [
+      {
+        "rank": 1,
+        "name": "示例侠客",
+        "score": 15465,
+        "floor": 999,
+        "coins": 115,
+        "elapsed": 950,
+        "runId": "server-issued-run-id",
+        "maxFloor": 999,
+        "coinPoints": 2875,
+        "remaining": 70,
+        "completionTime": 950,
+        "completedAt": "2026-10-02T03:00:00Z"
+      }
+    ]
+  },
+  "note": "Illustrative values only. Replay inputs are abbreviated, not a valid completion replay; do not seed these records into production."
+}

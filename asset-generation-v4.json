@@ -1,0 +1,6 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Create a single GAME TEXTURE ATLAS, exact 3 columns by 2 rows of six equal full-bleed rectangular tiles, no gutters, borders, labels or text. Each tile is a close-up continuous Chinese tower facade: ONE repeated storey, fixed parallel angled 3/4 projection same scale and angle everywhere, straight vertical supporting posts with identical top/bottom positions. Tiles must repeat vertically without gaps: facade architecture fills every pixel, no sky or transparency, no roof silhouette, no terminal rooftop or building base. Top and bottom edges matching posts/wall textures. Very narrow strip rendering in game, bold readable architectural forms. Reference is material/style inspiration only. Reading order themes: red timber inn gold lanterns; moss-green jade mountain pavilion; ivory turquoise floating palace; blue silver moon temple; violet dark-gold star observatory; warm white radiant gold heavenly palace. Distinct architecture and motifs, not mere recoloring. Painted polished wuxia game art. Single atlas, six equal rectangular cells.",
+  "asset": "public/assets/tower-stages-v4.png",
+  "source": "exec-4eac9406-e331-4afb-bca1-f1bb635b6702.png"
+}

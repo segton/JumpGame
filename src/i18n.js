@@ -1,0 +1,12 @@
+export const copy = {
+  en: {
+    title:'Skybound', edition:'CLOUD ASCENT', experiment:'EXPERIMENT 004', eyebrow:'A WUXIA JUMPING EXPERIMENT', heading:['Above','the clouds.'], description:'Across golden terraces. Beyond the mountain temples. One leap closer to the heavens.',
+    tips:[['Find your rhythm.','Every landing launches your next leap.'],['Lean into the climb.','Tilt your phone, use A / D or ← / →, or hold either side.'],['Keep your footing.','Blue-marked decks travel farther at higher floors. Collect coins for +25 points.']],
+    note:'10 points per floor · 25 per coin.', score:'SCORE', floor:'FLOOR', gold:'GOLD', best:'BEST', meters:'m', loading:'Loading the scenery…', gates:'BEYOND THE MOUNTAIN GATES', tagline:'A thousand terraces. An endless sky.', difficulty:'Difficulty', relaxed:'Relaxed', classic:'Classic', start:'Start climbing', checking:'Finding your balance…', easyHint:'Wider platforms. Room to find your rhythm.', hardHint:'Smaller ledges. A little more precision.', active:'Tilt steering active', sensorChecking:'Hold still · checking motion…', idle:'Tilt when available · arrows otherwise', denied:'Motion not allowed · left/right controls', manual:'Left/right controls active', center:'Center tilt', arrows:'Use arrows', tryTilt:'Try tilt', over:'One more climb?', points:'POINTS', retry:'Try again', change:'Change difficulty', tiltHint:'TILT TO STEER · TOUCH / ARROWS ALSO WORK', keysHint:'← HOLD LEFT OR RIGHT TO STEER →', bottom:'ONE LEAP CLOSER TO THE HEAVENS', side:'BEYOND THE CLOUDS', prototype:'GAMEPLAY PROTOTYPE', controls:'TILT / TOUCH / ARROW KEYS'
+  },
+  zh: {
+    title:'凌云一跃', edition:'云上之旅', experiment:'试玩版本 004', eyebrow:'武侠跳跃玩法测试', heading:['步步登高','直上云霄'], description:'跃过金台，穿越云海。山门之外，再上一层。',
+    tips:[['掌握节奏','每次落地后，角色都会自动起跳。'],['倾身而行','倾斜手机，使用 A / D 或方向键，也可按住画面左侧或右侧。'],['稳步向上','蓝色标记的平台会左右移动，层数越高，移动范围越大。拾取金币可获得25分。']],
+    note:'每层10分 · 每枚金币25分', score:'得分', floor:'层数', gold:'金币', best:'最高分', meters:'米', loading:'正在载入山川云海…', gates:'山门之外 · 云霄之上', tagline:'千重楼阁，无尽云海。', difficulty:'难度', relaxed:'轻松', classic:'经典', start:'开始攀登', checking:'正在校准…', easyHint:'平台更宽，轻松掌握跳跃节奏。', hardHint:'平台更窄，考验精准落点。', active:'倾斜操控已启用', sensorChecking:'请保持手机平稳，正在检测…', idle:'优先使用倾斜操控，不支持时使用左右操控', denied:'未获得传感器权限，使用左右操控', manual:'左右操控已启用', center:'校准倾斜', arrows:'使用左右操控', tryTilt:'尝试倾斜操控', over:'再攀高峰？', points:'总得分', retry:'再试一次', change:'调整难度', tiltHint:'倾斜手机移动 · 也可触屏或使用方向键', keysHint:'← 按住左侧或右侧移动 →', bottom:'步步登高 · 再上一层', side:'无尽高处 · 唯有更高', prototype:'玩法测试', controls:'倾斜 / 触屏 / 方向键'
+  }
+};
